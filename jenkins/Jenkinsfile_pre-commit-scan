@@ -1,0 +1,22 @@
+pipeline {
+    agent any
+
+    tools {
+        maven "MAVEN_HOME"
+    }
+
+    stages {
+        stage('Pre-Commit Scan') {
+            steps {
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/mmukul/AWSGoat']]])
+                sh '''  
+                pip install pre-commit
+                cd AWSGoat
+                pre-commit sample-config > .pre-commit-config.yaml
+                pre-commit install
+                pre-commit autoupdate
+                pre-commit run --all-files '''
+            }
+        }
+    }
+}
