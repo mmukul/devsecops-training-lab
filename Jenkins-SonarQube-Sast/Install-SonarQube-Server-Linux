@@ -1,0 +1,21 @@
+
+# Install SonarQube Server in Linux CLI
+
+yum install -y yum-utils
+yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+yum install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+systemctl start docker
+systemctl enable docker
+
+firewall-cmd --permanent --add-port=9000/tcp
+firewall-cmd --reload
+
+docker run -d --name sonarqube -p 9000:9000 sonarqube:lts-community
+
+docker images
+docker ps
+
+Once your instance is up and running, Log in to http://<IP-Address of VM>:9000 using below credentials:
+
+login: admin
+password: admin
