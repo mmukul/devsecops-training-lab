@@ -1,0 +1,12 @@
+
+## Install Docker Compose on Rocky Linux
+curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+docker-compose --version
+
+# Install crAPI
+mkdir labs && cd labs && git clone https://github.com/OWASP/crAPI.git && cd crAPI/deploy/docker/
+docker-compose pull
+docker-compose -f docker-compose.yml --compatibility up -d
+
+Visit this URL `http://localhost:8888` you should see login page
