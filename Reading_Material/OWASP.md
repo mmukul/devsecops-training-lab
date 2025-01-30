@@ -1,6 +1,6 @@
 The **Open Web Application Security Project (OWASP)** is a nonprofit organization focused on improving software security. It provides open-source tools, standards, and best practices to help developers, security professionals, and organizations mitigate security risks.  
 
-### **OWASP Top Ten (Most Popular)**  
+### **OWASP Top Ten**  
 A list of the most critical web application security risks:  
 - **A01:2021 – Broken Access Control**  
 - **A02:2021 – Cryptographic Failures**  
