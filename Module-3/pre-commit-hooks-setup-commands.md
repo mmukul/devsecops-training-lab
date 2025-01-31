@@ -1,6 +1,7 @@
 
 ## Pre-Commit hooks
 pip install pre-commit
+git clone https://github.com/mmukul/AWSGoat
 cd AWSGoat
 pre-commit sample-config > .pre-commit-config.yaml
 pre-commit install
