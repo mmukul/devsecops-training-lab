@@ -5,6 +5,7 @@ pipeline {
         maven "MAVEN_HOME"
     }
 
+    /*...........................Pre-commit hooks............................*/
     stages {
         stage('Pre-Commit Scan') {
             steps {
