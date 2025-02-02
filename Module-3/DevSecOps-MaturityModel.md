@@ -1,4 +1,4 @@
- Introduction
+# Introduction
 
 The OWASP DevSecOps Maturity Model provides opportunities to harden DevOps strategies and shows how these can be prioritized.
 
