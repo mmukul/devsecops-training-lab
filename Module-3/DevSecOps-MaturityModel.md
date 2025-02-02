@@ -6,12 +6,7 @@ With the help of DevOps strategies security can also be enhanced. For example, e
 
 Attackers are intelligent and creative, equipped with new technologies and purpose. Under the guidance of the forward-looking DevSecOps Maturity Model, appropriate principles and measures are at hand implemented which counteract the attacks.
 
-# Assessment
-
-In case you would like to perform a DevSecOps assessment, the following tools are available:
-
-* Usage of the applicaton in a `container`.
-* Development of an export to [OWASP Maturity Models](https://github.com/OWASP/Maturity-Models) (recommended for assessments with a lot of teams)
+# DevSecOps Assessment
 
 ## Container
 
