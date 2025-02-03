@@ -5,6 +5,14 @@ pipeline {
         maven "MAVEN_HOME"
     }
 
+    stages {
+        stage('Get Latest Code') {
+	        steps {
+                echo 'Get Latest Code'
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/mmukul/devsecops-training-lab.git']]])
+	    }
+	}
+
     /*....................Software Composition Analysis....................*/
     stage ('Software Composition Analysis - SCA') {
       steps {

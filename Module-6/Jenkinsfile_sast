@@ -1,0 +1,55 @@
+pipeline {
+    agent any
+
+    tools {
+        maven "MAVEN_HOME"
+    }
+
+    stages {
+        stage('Get Latest Code') {
+	        steps {
+                echo 'Get Latest Code'
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/mmukul/devsecops-training-lab.git']]])
+	    }
+	}
+
+        stage('Clean the Workspace') {
+            steps {
+                echo 'Clean the Workspace'
+                sh "mvn clean"
+            }
+        }
+
+        stage('Compile') {
+            steps {
+                sh "mvn compile"
+            }
+        }
+
+        stage('Start Sonarqube Container') {
+            steps {
+                sh "docker start sonarqube"
+            }
+        }
+
+        stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv('sonarserver') {
+                    sh ''' mvn sonar:sonar -Dsonar.projectName=Devops -Dsonar.java.binaries=. -Dsonar.projectKey=Devops '''
+                }
+            }
+        }
+
+        stage('Package') {
+            steps {
+                sh "mvn package"
+            }
+        }
+
+        stage('Unit Test') {
+            steps {
+                sh 'mvn test'
+            }
+        }
+    }
+}
