@@ -23,3 +23,10 @@ pipeline {
             }
         }
     }
+
+    post {
+        always {
+            dependencyCheckPublisher pattern: 'reports/dependency-check-report.xml'
+        }
+     }
+  }

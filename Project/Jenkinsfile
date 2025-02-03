@@ -6,26 +6,24 @@ pipeline {
     }
 
     stages {
-        stage ('Initialize Environment') {
-            steps {
-                sh '''
-                    echo "PATH = ${PATH}"
-                    echo "MAVEN_HOME = ${MAVEN_HOME}"
-                    ''' 
-            }
-        }
-
-        stage('BuildCode') {
-            steps {
-                sh 'mvn -B -DskipTests clean package'
-            }
-        }
+        stage('Get Latest Code') {
+	        steps {
+                echo 'Get Latest Code'
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/mmukul/devsecops-training-lab.git']]])
+	    }
+	}
 
        stage('SonarQubeAnalysis') {
             steps {
                 withSonarQubeEnv('sonarqube') {
                     sh 'mvn sonar:sonar'
                 }
+            }
+        }
+
+        stage('BuildCode') {
+            steps {
+                sh 'mvn -B -DskipTests clean package'
             }
         }
 

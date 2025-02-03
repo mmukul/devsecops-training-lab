@@ -13,19 +13,6 @@ pipeline {
 	    }
 	}
 
-        stage('Clean the Workspace') {
-            steps {
-                echo 'Clean the Workspace'
-                sh "mvn clean"
-            }
-        }
-
-        stage('Compile') {
-            steps {
-                sh "mvn compile"
-            }
-        }
-
         stage('Start Sonarqube Container') {
             steps {
                 sh "docker start sonarqube"
@@ -40,9 +27,9 @@ pipeline {
             }
         }
 
-        stage('Package') {
+        stage('BuildCode') {
             steps {
-                sh "mvn package"
+                sh 'mvn -B -DskipTests clean package'
             }
         }
 
