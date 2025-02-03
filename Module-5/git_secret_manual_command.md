@@ -1,3 +1,3 @@
 ## Git Secrets
 
-docker run gesellix/trufflehog --json https://github.com/WebGoat/WebGoat
+docker run --rm -it -v "$PWD:/pwd" trufflesecurity/trufflehog:latest github --repo https://github.com/trufflesecurity/test_keys
