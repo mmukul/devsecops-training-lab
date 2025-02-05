@@ -10,7 +10,8 @@ pipeline {
         stage('Pre-Commit Scan') {
             steps {
                 checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/mmukul/AWSGoat']]])
-                sh '''  
+                sh '''
+                yum install -y pip
                 pip install pre-commit
                 cd AWSGoat
                 pre-commit sample-config > .pre-commit-config.yaml
