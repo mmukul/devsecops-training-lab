@@ -11,6 +11,7 @@ pipeline {
             steps {
                 checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/mmukul/AWSGoat']]])
                 sh '''
+                rm -rf AWSGoat
                 pip install pre-commit
                 git clone https://github.com/mmukul/AWSGoat
                 cd AWSGoat
