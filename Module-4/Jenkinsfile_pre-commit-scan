@@ -19,17 +19,9 @@ pipeline {
                 pre-commit install
                 pre-commit autoupdate
                 set +e
-                pre-commit run --all-files '''
+                pre-commit run --all-files
+                '''
             }
-        }
-    }
-
-    post {
-        success {
-            echo 'pre-commit scan is success'
-        }
-        failure {
-            echo 'pre-commit scan failed'
         }
     }
 }
