@@ -23,4 +23,13 @@ pipeline {
             }
         }
     }
+
+    post {
+        success {
+            echo 'pre-commit scan is success'
+        }
+        failure {
+            echo 'pre-commit scan is success'
+        }
+    }
 }
