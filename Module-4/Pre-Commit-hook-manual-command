@@ -9,4 +9,5 @@ pre-commit autoupdate
 pre-commit run --all-files
 
 ## Manually Run a Hook
+## Use .pre-commit-config.yaml
 pre-commit run detect-secrets-hook
