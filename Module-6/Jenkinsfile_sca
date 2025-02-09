@@ -16,10 +16,13 @@ pipeline {
     /*....................Software Composition Analysis....................*/
     stage ('Software Composition Analysis - SCA') {
       steps {
-         sh 'rm owasp* || true'
-         sh 'chmod +x owasp-dependency-check.sh'
-         sh 'bash owasp-dependency-check.sh'
-         sh 'mv dependency-check-report.* reports/'
+         sh '''
+         rm owasp* || true
+         cd Module-6
+         chmod +x owasp-dependency-check.sh
+         ./owasp-dependency-check.sh
+         mv dependency-check-report.* reports/
+         '''
             }
         }
     }
