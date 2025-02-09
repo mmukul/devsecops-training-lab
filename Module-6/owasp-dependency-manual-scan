@@ -1,0 +1,10 @@
+
+## Download OWASP Dependency-check
+VERSION=11.1.1
+curl -Ls "https://github.com/jeremylong/DependencyCheck/releases/download/v$VERSION/dependency-check-$VERSION-release.zip" --output dependency-check.zip
+unzip dependency-check.zip
+cd dependency-check
+
+## Scan Dependent Files
+./bin/dependency-check.sh -h
+./bin/dependency-check.sh --out . --scan [path to jar files to be scanned]
