@@ -6,5 +6,4 @@ unzip dependency-check.zip
 cd dependency-check
 
 ## Scan Dependent Files
-./bin/dependency-check.sh -h
-./bin/dependency-check.sh --out . --scan [path to jar files to be scanned]
+./bin/dependency-check.sh --out . --scan /opt/JavaVulnerableLab.jar
