@@ -1,6 +1,7 @@
 ## Common types of vulnerabilities:
 
  1.Known Vulnerabilities in Open Source Libraries
+
 Description: These are vulnerabilities identified in widely used open-source libraries and are cataloged in databases like the National Vulnerability Database (NVD).
 
 #### Real-World Example:
