@@ -1,21 +1,21 @@
-### **🔹 jarsigner: Java Code Signing Tool**
+### **Java Code Signing Tool**
 
 `jarsigner` is a **Java utility** used to sign and verify Java Archive (**JAR**) files. It ensures the authenticity and integrity of JAR files in Java applications.
 
-## **🔹 Why Use jarsigner?**
+## **Why Use jarsigner?**
 
 ✅ Ensures **code authenticity** by verifying the developer's identity.  
 ✅ Protects against **tampering and supply chain attacks**.  
 ✅ Required for **signing Java applications, plugins, and applets**.  
 ✅ Helps meet security **compliance standards**.
 
-## **🔹 Prerequisites**
+## **Prerequisites**
 
 🔹 **Java Development Kit (JDK)** installed (includes `keytool` & `jarsigner`).  
 🔹 A **code signing certificate** (from a Certificate Authority or self-signed).  
 🔹 **Java Keystore (JKS)** containing the private key & certificate.
 
-## **🔹 Generate a Keystore & Key Pair **
+## **Generate a Keystore & Key Pair**
 
 ```sh
 keytool -genkeypair -keystore mykeystore.jks -alias myalias -keyalg RSA -keysize 2048 -validity 3650
@@ -31,7 +31,7 @@ keytool -genkeypair -keystore mykeystore.jks -alias myalias -keyalg RSA -keysize
 -   `-keysize 2048` → Uses **2048-bit encryption**
 -   `-validity 3650` → Valid for **10 years**
 
-## **🔹 Sign a JAR File with jarsigner**
+## **Sign a JAR File with jarsigner**
 
 ```sh
 jarsigner -keystore mykeystore.jks -signedjar myapp-signed.jar myapp.jar myalias
@@ -56,7 +56,7 @@ jarsigner -tsa http://timestamp.digicert.com -keystore mykeystore.jks -signedjar
 ✔ Prevents the signature from expiring when the certificate expires
 ✔ Validates the signing time with a trusted **Timestamp Authority (TSA)**
 
-## **🔹 Verify a Signed JAR**
+## **Verify a Signed JAR**
 
 ```sh
 jarsigner -verify -verbose -certs myapp-signed.jar
@@ -67,7 +67,7 @@ jarsigner -verify -verbose -certs myapp-signed.jar
 ✔ **jar verified.** → The JAR is signed and valid
 ✔ **No warnings/errors.** → Signature integrity is maintained
 
-## **🔹 Best Practices**
+## **Best Practices**
 
 ✔ Always **timestamp** signatures (`-tsa` option)
 ✔ Use **strong cryptographic algorithms** (e.g., RSA 2048-bit, SHA-256)
