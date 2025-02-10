@@ -20,6 +20,7 @@ pipeline {
          cd Module-6
          chmod +x owasp-dependency-check.sh
          ./owasp-dependency-check.sh
+         mkdir reports
          mv dependency-check-report.* reports/
          '''
             }
