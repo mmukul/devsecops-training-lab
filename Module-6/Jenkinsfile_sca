@@ -17,19 +17,10 @@ pipeline {
     stage ('Software Composition Analysis - SCA') {
       steps {
          sh '''
-         cd Module-6
-         chmod +x owasp-dependency-check.sh
-         ./owasp-dependency-check.sh
-         mkdir reports
-         mv dependency-check-report.* reports/
+         cd dependency-check
+        ./bin/dependency-check.sh --out . --scan /Module-6/JavaVulnerableLab.jar
          '''
             }
         }
     }
-
-    post {
-        always {
-            dependencyCheckPublisher pattern: 'reports/dependency-check-report.xml'
-        }
-     }
-  }
+}
