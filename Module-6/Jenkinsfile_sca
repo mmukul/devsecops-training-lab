@@ -16,13 +16,13 @@ pipeline {
     /*....................Software Composition Analysis....................*/
     stage ('Software Composition Analysis - SCA') {
       steps {
-         sh '''
+        sh '''
+        rm -rf dependency-check*
         VERSION=11.1.1
         curl -Ls "https://github.com/jeremylong/DependencyCheck/releases/download/v$VERSION/dependency-check-$VERSION-release.zip" --output dependency-check.zip
         unzip dependency-check.zip
         cd dependency-check
-        ./bin/dependency-check.sh --out . --scan Module-6/JavaVulnerableLab.jar
-         '''
+        ./bin/dependency-check.sh --out . --scan ../Module-6/JavaVulnerableLab.jar '''
             }
         }
     }
