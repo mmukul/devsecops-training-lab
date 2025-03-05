@@ -9,7 +9,7 @@ pipeline {
         stage ('DAST') {
             steps {
                 sh '''                
-                mkdir zap-reports
+                mkdir zap-reports || true
                 chmod 777 zap-reports
                 docker run -v \$(pwd)/zap-reports:/zap/wrk/:rw -t ghcr.io/zaproxy/zaproxy:stable zap-api-scan.py -t http://www.vulnweb.com -r zap-baseline-scan.html || true
                 '''
