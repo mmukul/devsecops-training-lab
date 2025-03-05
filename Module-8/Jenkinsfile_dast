@@ -9,9 +9,9 @@ pipeline {
         stage ('DAST') {
             steps {
                 sh '''                
-                sh "mkdir -p zap-reports"
-                sh "chmod 777 zap-reports"
-                sh "docker run -v \$(pwd)/zap-reports:/zap/wrk/:rw -t owasp/zap2docker-stable zap-api-scan.py -t http://www.vulnweb.com -r zap-baseline-scan.html || true"
+                mkdir zap-reports
+                chmod 777 zap-reports
+                docker run -v \$(pwd)/zap-reports:/zap/wrk/:rw -t owasp/zap2docker-stable zap-api-scan.py -t http://www.vulnweb.com -r zap-baseline-scan.html || true
                 '''
             }
         }
