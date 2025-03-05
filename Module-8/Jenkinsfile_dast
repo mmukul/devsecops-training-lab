@@ -24,6 +24,7 @@ pipeline {
             steps {
                 sh '''
                 mkdir reports
+                touch reports/zap-baseline-scan.html
                 docker run -v $(pwd):/zap/wrk/:rw -t ghcr.io/zaproxy/zaproxy:stable zap-baseline.py \
     -t http://testphp.vulnweb.com -g gen.conf -r reports/zap-baseline-scan.html || true
                 '''
