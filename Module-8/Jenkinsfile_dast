@@ -9,7 +9,6 @@ pipeline {
         stage ('DAST') {
             steps {
                 sh '''
-                touch zap-baseline-scan.html || true
                 docker run -v $(pwd):/zap/wrk/:rw -t ghcr.io/zaproxy/zaproxy:stable zap-baseline.py \
     -t http://testphp.vulnweb.com -g gen.conf -r zap-baseline-scan.html || true
                 '''
