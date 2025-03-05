@@ -6,7 +6,7 @@ pipeline {
     }
 
     stages {
-        stage ('DAST') {
+        stage ('DAST Scan') {
             steps {
                 sh '''                
                 mkdir zap-reports || true
