@@ -30,11 +30,11 @@ pipeline {
                 '''
             }
         }
-    }
 
     post {
         always {
             publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'reports', reportFiles: 'zap-baseline-scan.html', reportName: 'DAST Report', reportTitles: 'Dast Report', useWrapperFileDirectly: true])
-     }
-  }
+            }
+        }
+    }
 }
