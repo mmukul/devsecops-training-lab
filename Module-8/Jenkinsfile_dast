@@ -24,7 +24,7 @@ pipeline {
             steps {
                 sh '''
                 docker run -v $(pwd):/zap/wrk/:rw -t ghcr.io/zaproxy/zaproxy:stable zap-baseline.py \
-    -t https://www.example.com -g gen.conf -r reports/zap-baseline-scan.html || true
+    -t http://testphp.vulnweb.com -g gen.conf -r reports/zap-baseline-scan.html || true
                 '''
             }
         }
