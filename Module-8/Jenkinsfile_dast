@@ -9,10 +9,9 @@ pipeline {
         stage ('DAST') {
             steps {
                 sh '''
-                mkdir reports || true
-                touch reports/zap-baseline-scan.html || true
+                touch zap-baseline-scan.html || true
                 docker run -v $(pwd):/zap/wrk/:rw -t ghcr.io/zaproxy/zaproxy:stable zap-baseline.py \
-    -t http://testphp.vulnweb.com -g gen.conf -r reports/zap-baseline-scan.html || true
+    -t http://testphp.vulnweb.com -g gen.conf -r zap-baseline-scan.html || true
                 '''
             }
         }
@@ -20,7 +19,7 @@ pipeline {
 
     post {
         always {
-            publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'reports', reportFiles: 'zap-baseline-scan.html', reportName: 'DAST Report', reportTitles: 'Dast Report', useWrapperFileDirectly: true])
+            publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportFiles: 'zap-baseline-scan.html', reportName: 'DAST Report', reportTitles: 'Dast Report', useWrapperFileDirectly: true])
             }
         }
     }
