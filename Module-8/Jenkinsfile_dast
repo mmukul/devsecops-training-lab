@@ -6,20 +6,6 @@ pipeline {
     }
 
     stages {
-        stage ('Get Latest Code') {
-	        steps {
-                echo 'Get Latest Code'
-                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/mmukul/devsecops-training-lab.git']]])
-	        }
-	    }
-
-        stage ('Build App') {
-            steps {
-                sh 'mvn clean package'
-            }
-        }
-
-    /*...........................DAST................................*/
         stage ('DAST') {
             steps {
                 sh '''
@@ -30,6 +16,7 @@ pipeline {
                 '''
             }
         }
+    }
 
     post {
         always {
@@ -37,4 +24,3 @@ pipeline {
             }
         }
     }
-}
