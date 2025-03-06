@@ -1,30 +1,33 @@
 pipeline {
     agent any
 
-    tools {
-        maven "MAVEN_HOME"
-    }
-
-    stages {
-        stage('Get Latest Code') {
-	        steps {
-                echo 'Get Latest Code'
-                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/mmukul/devsecops-training-lab.git']]])
-	    }
-	}
-
     /*....................Software Composition Analysis....................*/
-    stage ('Software Composition Analysis - SCA') {
-      steps {
-        sh'''
-        rm -rf dependency-check*
-        VERSION=11.1.1
-        curl -Ls "https://github.com/jeremylong/DependencyCheck/releases/download/v$VERSION/dependency-check-$VERSION-release.zip" --output dependency-check.zip
-        unzip dependency-check.zip
-        cd dependency-check
-        ./bin/dependency-check.sh --out . --scan ../Module-6/JavaVulnerableLab.jar --out dependency-check-report || true
-        '''
+        stage ('Dependency Check') {
+        steps {
+            sh'''
+            rm -rf dependency-check*
+            mkdir -p reports
+            VERSION=11.1.1
+            curl -Ls "https://github.com/jeremylong/DependencyCheck/releases/download/v$VERSION/dependency-check-$VERSION-release.zip" --output dependency-check.zip
+            unzip dependency-check.zip
+            cd dependency-check
+            ./bin/dependency-check.sh --scan ../Module-6/JavaVulnerableLab.jar --out reports/dependency-check-report --format HTML || true
+            '''
+                }
             }
         }
+
+    post {
+        always {
+            echo 'Publishing Dependency-Check Report...'
+
+            publishHTML (target: [
+                reportDir: 'reports',
+                reportFiles: 'dependency-check-report.html',
+                reportName: 'OWASP Dependency-Check Report',
+                keepAll: true,
+                alwaysLinkToLastBuild: true,
+                allowMissing: false
+            ])
+        }
     }
-}
