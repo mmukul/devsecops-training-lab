@@ -22,7 +22,7 @@ pipeline {
         curl -Ls "https://github.com/jeremylong/DependencyCheck/releases/download/v$VERSION/dependency-check-$VERSION-release.zip" --output dependency-check.zip
         unzip dependency-check.zip
         cd dependency-check
-        ./bin/dependency-check.sh --out . --scan ../Module-6/JavaVulnerableLab.jar || yes
+        ./bin/dependency-check.sh --out . --scan ../Module-6/JavaVulnerableLab.jar || true
         '''
             }
         }
