@@ -1,19 +1,32 @@
 pipeline {
     agent any
 
-    tools {
-        maven "MAVEN_HOME"
-    }
-
     stages {
-        stage ('DAST Scan') {
+        stage('Start ZAP Scan') {
             steps {
-                sh '''                
-                mkdir zap-reports || true
-                chmod 777 zap-reports
-                docker run -v \$(pwd)/zap-reports:/zap/wrk/:rw -t ghcr.io/zaproxy/zaproxy:stable zap-api-scan.py -t http://www.vulnweb.com -r zap-baseline-scan.html -f openapi || true
+                echo 'Starting OWASP ZAP security scan...'
+                
+                sh '''
+				mkdir -p reports || true
+                chmod 777 reports
+                docker run -v \$(pwd)/reports:/zap/wrk/:rw -t ghcr.io/zaproxy/zaproxy:stable zap-api-scan.py -t http://www.vulnweb.com -r reports/zap-report.html -f openapi || true
                 '''
             }
+        }
+    }
+
+    post {
+        always {
+            echo 'Publishing ZAP Security Report...'
+
+            publishHTML (target: [
+                reportDir: 'reports',
+                reportFiles: 'zap-report.html',
+                reportName: 'OWASP ZAP Security Report',
+                keepAll: true,
+                alwaysLinkToLastBuild: true,
+                allowMissing: false
+            ])
         }
     }
 }
