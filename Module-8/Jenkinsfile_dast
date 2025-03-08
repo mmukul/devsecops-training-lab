@@ -9,8 +9,8 @@ pipeline {
                 sh '''
                 mkdir -p reports || true
                 chmod 777 reports
-                docker run -v $(pwd):/zap/wrk/:rw -t ghcr.io/zaproxy/zaproxy:stable zap-baseline.py -t http://www.vulnweb.com -g gen.conf -r zap-report.html || true
-                mv zap-report.html reports/
+                docker run -v $(pwd):/zap/wrk/:rw -t ghcr.io/zaproxy/zaproxy:stable --name owasp-zap zap-baseline.py -t http://www.vulnweb.com -g gen.conf -r zap-report.html || true
+                docker cp owasp-zap:/zap/wrk/zap-report.html ${WORKSPACE}/reports/zap-report.html
                 '''
             }
         }
