@@ -7,9 +7,7 @@ pipeline {
                 echo 'Starting OWASP ZAP security scan...'
                 
                 sh '''
-				mkdir -p reports || true
-                chmod 777 reports
-                docker run -v \$(pwd)/reports:/zap/wrk/:rw -t ghcr.io/zaproxy/zaproxy:stable zap-api-scan.py -t http://www.vulnweb.com -r reports/zap-report.html -f openapi || true
+                docker run -v $(pwd):/zap/wrk/:rw -t ghcr.io/zaproxy/zaproxy:stable zap-baseline.py -t http://www.vulnweb.com -g gen.conf -r zap-report.html -f openapi || true
                 '''
             }
         }
@@ -20,7 +18,6 @@ pipeline {
             echo 'Publishing ZAP Security Report...'
 
             publishHTML (target: [
-                reportDir: 'reports',
                 reportFiles: 'zap-report.html',
                 reportName: 'OWASP ZAP Security Report',
                 keepAll: true,
