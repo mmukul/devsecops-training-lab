@@ -10,7 +10,6 @@ pipeline {
                 mkdir -p reports || true
                 chmod 777 reports
                 docker run -v $(pwd):/zap/wrk/reports:rw -t ghcr.io/zaproxy/zaproxy:stable zap-baseline.py -t http://www.vulnweb.com -g gen.conf -r zap-report.html || true
-                docker cp $(pwd):/zap/wrk/reports/zap-report.html ./
                 '''
             }
         }
@@ -18,21 +17,16 @@ pipeline {
 
     post {
         always {
-            script {
-                def reportPath = 'reports/zap-report.html' // Full path to the report
-                if (fileExists(reportPath)) {
-                    echo 'Publishing ZAP Security Report...'
-                    publishHTML (target: [
-                        reportFiles: reportPath,  // Directly reference the file
-                        reportName: 'OWASP ZAP Security Report',
-                        keepAll: true,
-                        alwaysLinkToLastBuild: true,
-                        allowMissing: false
-                    ])
-                } else {
-                    echo "No ZAP report found. Skipping publishing step."
-                }
-            }
+            echo 'Publishing ZAP Security Report...'
+
+            publishHTML (target: [
+                reportDir: '',   // Directory where ZAP report is stored
+                reportFiles: 'zap-report.html',  // ZAP HTML report file
+                reportName: 'OWASP ZAP Security Report',
+                keepAll: true,
+                alwaysLinkToLastBuild: true,
+                allowMissing: false
+            ])
         }
     }
 }
