@@ -8,7 +8,7 @@ pipeline {
                 
                 sh '''
                 mkdir -p reports || true
-                docker run -v $(pwd):/zap/wrk/:rw -t ghcr.io/zaproxy/zaproxy:stable zap-baseline.py -t http://www.vulnweb.com -g gen.conf -o reports/zap-report.html -f HTML || true
+                docker run -v $(pwd):/zap/wrk/:rw -t ghcr.io/zaproxy/zaproxy:stable zap-baseline.py -t http://www.vulnweb.com -g gen.conf --out reports/zap-report.html -f HTML || true
                 '''
             }
         }
