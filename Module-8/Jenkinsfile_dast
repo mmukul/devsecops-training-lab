@@ -7,7 +7,8 @@ pipeline {
                 echo 'Starting OWASP ZAP security scan...'
                 
                 sh '''
-                docker run -v $(pwd):/zap/wrk/:rw -t ghcr.io/zaproxy/zaproxy:stable zap-baseline.py -t http://www.vulnweb.com -g gen.conf -r zap-report.html || true
+                mkdir -p reports || true
+                docker run -v $(pwd):/zap/wrk/:rw -t ghcr.io/zaproxy/zaproxy:stable zap-baseline.py -t http://www.vulnweb.com -g gen.conf -o reports/zap-report.html -f HTML || true
                 '''
             }
         }
@@ -15,15 +16,21 @@ pipeline {
 
     post {
         always {
-            echo 'Publishing ZAP Security Report...'
-
-            publishHTML (target: [
-                reportFiles: 'zap-report.html',
-                reportName: 'OWASP ZAP Security Report',
-                keepAll: true,
-                alwaysLinkToLastBuild: true,
-                allowMissing: false
-            ])
+            script {
+                def reportPath = 'reports/zap-report.html' // Full path to the report
+                if (fileExists(reportPath)) {
+                    echo 'Publishing ZAP Security Report...'
+                    publishHTML (target: [
+                        reportFiles: reportPath,  // Directly reference the file
+                        reportName: 'OWASP ZAP Security Report',
+                        keepAll: true,
+                        alwaysLinkToLastBuild: true,
+                        allowMissing: false
+                    ])
+                } else {
+                    echo "No ZAP report found. Skipping publishing step."
+                }
+            }
         }
     }
 }
