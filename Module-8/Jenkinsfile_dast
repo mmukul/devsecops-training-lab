@@ -23,7 +23,7 @@ pipeline {
                 reportFiles: 'zap-report.html',
                 reportName: 'OWASP ZAP Security Report',
                 keepAll: true,
-                alwaysLinkToLastBuild: true,
+                alwaysLinkToLastBuild: false,
                 allowMissing: false
             ])
         }
