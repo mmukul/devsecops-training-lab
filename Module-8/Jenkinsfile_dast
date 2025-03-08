@@ -20,8 +20,8 @@ pipeline {
             echo 'Publishing ZAP Security Report...'
 
             publishHTML (target: [
-                reportDir: '',   // Directory where ZAP report is stored
-                reportFiles: 'zap-report.html',  // ZAP HTML report file
+                reportDir: 'reports',
+                reportFiles: 'zap-report.html',
                 reportName: 'OWASP ZAP Security Report',
                 keepAll: true,
                 alwaysLinkToLastBuild: true,
