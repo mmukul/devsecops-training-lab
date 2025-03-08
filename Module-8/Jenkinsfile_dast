@@ -14,8 +14,9 @@ pipeline {
             }
         }
     }
+}
 
-    post {
+    //post {
         always {
             echo 'Publishing ZAP Security Report...'
 
@@ -29,4 +30,4 @@ pipeline {
             ])
         }
     }
-}
+}//
