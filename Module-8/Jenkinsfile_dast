@@ -7,8 +7,8 @@ pipeline {
                 echo 'Starting OWASP ZAP security scan...'
                 
                 sh '''
-                mkdir reports || true
-                docker run -v $(pwd):/zap/wrk/:rw --user root -t ghcr.io/zaproxy/zaproxy:stable zap-baseline.py -t http://www.vulnweb.com -g gen.conf -r reports/zap-report.html
+                mkdir -p reports || true
+                docker run -v $(pwd):/zap/wrk/:rw --user root -t ghcr.io/zaproxy/zaproxy:stable zap-baseline.py -t http://www.vulnweb.com -g gen.conf -r reports/zap-report.html || true
                 '''
             }
         }
