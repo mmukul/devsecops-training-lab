@@ -8,8 +8,8 @@ pipeline {
             steps {
                 sh'''
                 rm -rf dependency-check*
-                mkdir -p reports
-                VERSION=11.1.1
+                mkdir -p reports || true
+                 VERSION=11.1.1
                 curl -Ls "https://github.com/jeremylong/DependencyCheck/releases/download/v$VERSION/dependency-check-$VERSION-release.zip" --output dependency-check.zip
                 unzip dependency-check.zip
                 cd dependency-check
