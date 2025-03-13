@@ -23,6 +23,12 @@ pipeline {
             }
         }
 
+        stage('Build App') {
+            steps {
+                sh 'mvn clean package'
+            }
+        }
+
         /*....................Software Composition Analysis....................*/
         stage ('SCA') {
             steps {
@@ -48,12 +54,6 @@ pipeline {
                     mvn sonar:sonar -Dsonar.projectName=DevSecOps -Dsonar.java.binaries=. -Dsonar.projectKey=DevSecOps
                     '''
                 }
-            }
-        }
-
-        stage('Build App') {
-            steps {
-                sh 'mvn clean package'
             }
         }
 
