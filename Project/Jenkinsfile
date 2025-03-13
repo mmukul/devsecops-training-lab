@@ -40,7 +40,7 @@ pipeline {
                 rm -rf dependency-check.zip
                 cd dependency-check
                 /*./bin/dependency-check.sh --scan ../Module-6/JavaVulnerableLab.jar --out dependency-check-report.html --format HTML || true */
-                ./bin/dependency-check.sh --scan ./target/my-app-1.0.jar --out dependency-check-report.html --format HTML || true
+                ./bin/dependency-check.sh --scan /target/my-app-1.0.jar --out dependency-check-report.html --format HTML || true
                 '''
                 }
             }
