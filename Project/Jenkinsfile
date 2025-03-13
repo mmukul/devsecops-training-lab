@@ -101,7 +101,7 @@ pipeline {
             steps{
                 script{
                     sh '''
-                    curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh -s -- -b /usr/local/bin
+                    curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh -s -- -b /usr/local/bin || true
                     grype smilemukul/my-app-1.0:v1 --file reports/vulnerability-scan-report.json
                     '''
                 }
