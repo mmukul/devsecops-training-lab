@@ -43,7 +43,7 @@ pipeline {
             steps {
                 withSonarQubeEnv('sonarserver') {
                     sh '''
-                    docker run --rm -d -p 9000:9000 -p 9002:9002 owasp/sonarqube || true
+                    docker run -d --name sonarqube -p 9000:9000 sonarqube:lts-community
                     docker start sonarqube
                     mvn sonar:sonar -Dsonar.projectName=DevSecOps -Dsonar.java.binaries=. -Dsonar.projectKey=DevSecOps
                     '''
