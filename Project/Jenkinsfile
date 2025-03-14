@@ -14,27 +14,16 @@ pipeline {
 	    }
 
         /*...........................Pre-commit hooks............................*/
-        stage ('Pre-commit hooks') {
-            steps {
-                sh '''
-                rm -rf .git/hooks/pre-commit || true
-                curl https://raw.githubusercontent.com/mmukul/pre-commit-hooks/main/install.sh > install-precommit.sh
-                chmod +x install-precommit.sh
-                ./install-precommit.sh pre-commit > precommit-log-report.html
-            }
-        }
-
         stage('Build App') {
             steps {
                 sh 'mvn clean package'
+                }
             }
-        }
 
         /*....................Software Composition Analysis....................*/
         stage ('SCA') {
             steps {
                 sh '''
-                mkdir -p reports || true
                 VERSION=12.1.0
                 curl -Ls "https://github.com/jeremylong/DependencyCheck/releases/download/v$VERSION/dependency-check-$VERSION-release.zip" --output dependency-check.zip
                 unzip dependency-check.zip || true
