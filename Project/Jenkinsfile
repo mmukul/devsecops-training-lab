@@ -110,7 +110,7 @@ pipeline {
             publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'dependency-check', reportFiles: 'dependency-check-report.html', reportName: 'OWASP Dependency-Check Report', reportTitles: 'OWASP Dependency-Check Report', useWrapperFileDirectly: true])
             publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'reports', reportFiles: 'vulnerability-scan-report.json', reportName: 'Vulnerability Scan Report', reportTitles: 'Vulnerability Scan Report', useWrapperFileDirectly: true])
             publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'reports', reportFiles: 'zap-report.html', reportName: 'OWASP ZAP Security Report', reportTitles: 'OWASP ZAP Security Report', useWrapperFileDirectly: true])
-            publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'reports', reportFiles: 'surefire-reports.txt', reportName: 'Unit Test Report', reportTitles: 'Unit Test Report', useWrapperFileDirectly: true])
+            publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'target/surefire-reports', reportFiles: 'com.mysimpledemo.app.AppTest.txt', reportName: 'Unit Test Report', reportTitles: 'Unit Test Report', useWrapperFileDirectly: true])
 
         }
      }
